@@ -5,7 +5,7 @@ Feature: Add to cart button for bundles
   So that I can add the bundle to my cart and purchase the items
 
   Scenario: Add a bundle to the cart
-    Given I have a bundle "6 Month Supply" with the following items and a discount of $216:
+    Given I have a bundle "6 Month Supply" with the following items and a discount of $216.00:
       | productName     | priceInDollars | quantity |
       | AlgaeCal Plus   | 40.99          | 6        |
       | Strontium Boost | 45.99          | 6        |

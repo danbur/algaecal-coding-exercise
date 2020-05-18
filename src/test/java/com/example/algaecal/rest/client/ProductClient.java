@@ -1,16 +1,15 @@
 package com.example.algaecal.rest.client;
 
-import com.example.algaecal.config.ServiceConfiguration;
 import com.example.algaecal.data.rest.model.Product;
 import com.example.algaecal.data.rest.model.ProductBundle;
 import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.rest.SerenityRest;
 import org.apache.http.HttpStatus;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import static org.hamcrest.Matchers.either;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.either;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 @Service
 @Slf4j
@@ -18,7 +17,8 @@ public class ProductClient {
   private static final String PRODUCT_BY_ID_ENDPOINT = "/product/{id}";
   private static final String BUNDLE_BY_ID_ENDPOINT = "/bundle/{id}";
 
-  @Autowired private ServiceConfiguration serviceConfiguration;
+  @Value("${services.baseUri}")
+  private String baseUri;
 
   /**
    * Create or update a product
@@ -26,6 +26,7 @@ public class ProductClient {
    * @param product Product
    */
   public Product createOrUpdateProduct(Product product) {
+    log.info("BaseUri: {}", baseUri);
     log.info("Creating product: {}", product);
     // Here I am assuming there is PUT endpoint with an ID in the URL that takes a payload with the
     // following structure:
@@ -35,9 +36,9 @@ public class ProductClient {
     //   "name" : "AlgaeCal Plus"
     // }
     return SerenityRest.given()
-        .baseUri(serviceConfiguration.getBaseUri())
+        .baseUri(baseUri)
         .body(product)
-        .param("id", product.getId())
+        .pathParam("id", product.getId())
         .put(PRODUCT_BY_ID_ENDPOINT)
         .then()
         .statusCode(either(equalTo(HttpStatus.SC_OK)).or(equalTo(HttpStatus.SC_CREATED)))
@@ -71,9 +72,9 @@ public class ProductClient {
     //   "id" : "12-Month-Supply"
     // }
     return SerenityRest.given()
-        .baseUri(serviceConfiguration.getBaseUri())
+        .baseUri(baseUri)
         .body(productBundle)
-        .param("id", productBundle.getId())
+        .pathParam("id", productBundle.getId())
         .put(BUNDLE_BY_ID_ENDPOINT)
         .then()
         .statusCode(either(equalTo(HttpStatus.SC_OK)).or(equalTo(HttpStatus.SC_CREATED)))

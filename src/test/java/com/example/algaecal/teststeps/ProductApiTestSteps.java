@@ -25,6 +25,7 @@ public class ProductApiTestSteps extends BaseTestSteps {
         bundleItems.forEach(item -> {
             Product product = new Product();
             product.setName(item.getProductName());
+            product.setId(item.getProductName().replace(" ", "-"));
             product.setPrice(item.getPriceInDollars());
             Product result = productClient.createOrUpdateProduct(product);
             ProductIdAndQuantity productIdAndQuantity = new ProductIdAndQuantity();
