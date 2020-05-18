@@ -12,5 +12,8 @@ Feature: Add to cart button for bundles
     And I am on the product bundles page
     When I click on the Add to cart button for the bundle "6 Month Supply"
     And I click on the shopping cart button
-    Then I should see 12 items on the shopping cart page
+    Then I should see the following items on the shopping cart page:
+      | productName     | priceInDollars | quantity |
+      | AlgaeCal Plus   | 40.99          | 6        |
+      | Strontium Boost | 45.99          | 6        |
     And the shopping cart total should be $305.88

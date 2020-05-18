@@ -5,6 +5,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 
+/** Test runner for all tests */
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = "src/test/resources/features", glue = "com.example.algaecal")
 @ContextConfiguration(locations = "classpath:spring-test-config.xml")

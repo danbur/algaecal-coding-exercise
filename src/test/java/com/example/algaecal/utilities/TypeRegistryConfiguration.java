@@ -9,32 +9,34 @@ import io.cucumber.datatable.dependency.com.fasterxml.jackson.databind.ObjectMap
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Needed to convert Cucumber data tables to lists of objects
- */
+/** Needed to convert Cucumber data tables to lists of objects */
 public class TypeRegistryConfiguration implements TypeRegistryConfigurer {
+  @Override
+  public void configureTypeRegistry(TypeRegistry registry) {
+
+    JacksonTableTransformer jacksonTableTransformer = new JacksonTableTransformer();
+    registry.setDefaultDataTableEntryTransformer(jacksonTableTransformer);
+    registry.setDefaultDataTableCellTransformer(jacksonTableTransformer);
+  }
+
+  @Override
+  public Locale locale() {
+    return Locale.ENGLISH;
+  }
+
+  private static final class JacksonTableTransformer
+      implements TableEntryByTypeTransformer, TableCellByTypeTransformer {
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
-    public void configureTypeRegistry(TypeRegistry registry) {
-
-        JacksonTableTransformer jacksonTableTransformer = new JacksonTableTransformer();
-        registry.setDefaultDataTableEntryTransformer(jacksonTableTransformer);
-        registry.setDefaultDataTableCellTransformer(jacksonTableTransformer);
+    public <T> T transform(
+        Map<String, String> entry, Class<T> type, TableCellByTypeTransformer cellTransformer) {
+      return objectMapper.convertValue(entry, type);
     }
 
     @Override
-    public Locale locale() {
-        return Locale.ENGLISH;
+    public <T> T transform(String value, Class<T> cellType) {
+      return objectMapper.convertValue(value, cellType);
     }
-
-    private static final class JacksonTableTransformer implements TableEntryByTypeTransformer, TableCellByTypeTransformer {
-        private final ObjectMapper objectMapper = new ObjectMapper();
-        @Override
-        public <T> T transform(Map<String, String> entry, Class<T> type, TableCellByTypeTransformer cellTransformer) {
-            return objectMapper.convertValue(entry, type);
-        }
-        @Override
-        public <T> T transform(String value, Class<T> cellType) {
-            return objectMapper.convertValue(value, cellType);
-        }
-    }
+  }
 }

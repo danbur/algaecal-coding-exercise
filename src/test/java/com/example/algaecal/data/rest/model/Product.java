@@ -4,12 +4,10 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-/**
- * DTO for products
- */
+/** DTO for products in the back-end service endpoint */
 @Data
 public class Product {
-    String name;
-    String id;
-    BigDecimal price;
+  String name;
+  String id;
+  BigDecimal price;
 }

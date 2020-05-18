@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.equalTo;
 
+/**
+ * Client for the product service. This abstracts all of the interactions, so the test steps do not
+ * need to worry about the details.
+ *
+ * <p>Here I am assuming that the product service has a couple of endpoints to create or replace
+ * products and product bundles, and that it uses HTTP Basic access authentication.
+ */
 @Service
 @Slf4j
 public class ProductClient {
@@ -19,6 +26,12 @@ public class ProductClient {
 
   @Value("${services.baseUri}")
   private String baseUri;
+
+  @Value("${services.username}")
+  private String username;
+
+  @Value("${services.password}")
+  private String password;
 
   /**
    * Create or update a product
@@ -37,6 +50,8 @@ public class ProductClient {
     // }
     return SerenityRest.given()
         .baseUri(baseUri)
+        .auth()
+        .basic(username, password)
         .body(product)
         .pathParam("id", product.getId())
         .put(PRODUCT_BY_ID_ENDPOINT)
@@ -73,6 +88,8 @@ public class ProductClient {
     // }
     return SerenityRest.given()
         .baseUri(baseUri)
+        .auth()
+        .basic(username, password)
         .body(productBundle)
         .pathParam("id", productBundle.getId())
         .put(BUNDLE_BY_ID_ENDPOINT)
