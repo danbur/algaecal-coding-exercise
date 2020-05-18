@@ -16,6 +16,6 @@ public class ProductApiTestSteps extends BaseTestSteps {
     public void createOrUpdateBundle(String bundleName, int discountPrice, List<BundleItem> bundleItems) {
         // I am assuming the product API is a REST API.
         // This is a fake endpoint, as I do not know what the API looks like
-        productClient.createBundle(bundleName);
+        productClient.createOrUpdateBundle(bundleName);
     }
 }

@@ -11,6 +11,6 @@ Feature: Add to cart button for bundles
       | Strontium Boost | 45             | 6        |
     And I am on the product bundles page
     When I click on the Add to cart button for the bundle "6 Month Supply"
-    And I click on the cart button
-    Then I should have 12 items in my cart
-    And the cart total should be $294
+    And I click on the shopping cart button
+    Then I should see 12 items on the shopping cart page
+    And the shopping cart total should be $294

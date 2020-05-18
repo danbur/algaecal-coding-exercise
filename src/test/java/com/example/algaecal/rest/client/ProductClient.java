@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ProductClient {
-    public void createBundle(String bundleName) {
+    public void createOrUpdateBundle(String bundleName) {
         // TODO
         log.info("Creating bundle");
     }
