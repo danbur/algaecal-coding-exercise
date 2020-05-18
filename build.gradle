@@ -1,0 +1,40 @@
+    group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.2.7")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+dependencies {
+    testCompile 'net.serenity-bdd:serenity-core:2.1.2'
+    testCompile 'net.serenity-bdd:serenity-cucumber4:2.1.2'
+    testCompile 'net.serenity-bdd:serenity-junit:2.1.2'
+    testCompile 'net.serenity-bdd:serenity-rest-assured:2.1.2'
+    testCompile 'net.serenity-bdd:serenity-spring:2.1.2'
+    testCompile 'io.cucumber:cucumber-core:4.8.0'
+    testCompile 'io.cucumber:cucumber-java:4.8.0'
+    testCompile 'io.cucumber:cucumber-junit:4.8.0'
+    testCompile('org.assertj:assertj-core:1.7.0')
+    testCompile('org.slf4j:slf4j-simple:1.7.7')
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
