@@ -7,10 +7,10 @@ Feature: Add to cart button for bundles
   Scenario: Add a bundle to the cart
     Given I have a bundle "6 Month Supply" with the following items and a discount of $216:
       | productName     | priceInDollars | quantity |
-      | AlgaeCal Plus   | 40             | 6        |
-      | Strontium Boost | 45             | 6        |
+      | AlgaeCal Plus   | 40.99          | 6        |
+      | Strontium Boost | 45.99          | 6        |
     And I am on the product bundles page
     When I click on the Add to cart button for the bundle "6 Month Supply"
     And I click on the shopping cart button
     Then I should see 12 items on the shopping cart page
-    And the shopping cart total should be $294
+    And the shopping cart total should be $305.88
